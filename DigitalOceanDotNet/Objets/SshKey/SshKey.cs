@@ -2,7 +2,7 @@
 
 namespace DigitalOceanDotNet.Objets.SshKey
 {
-    public class GetOneResponse
+    public class SshKey
     {
         [JsonProperty("id")]
         public long Id { get; set; } = 0;
