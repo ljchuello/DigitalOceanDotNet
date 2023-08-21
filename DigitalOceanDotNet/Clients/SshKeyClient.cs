@@ -9,12 +9,7 @@ namespace DigitalOceanDotNet.Clients
 {
     public class SshKeyClient
     {
-        private readonly string _token = string.Empty;
-
-        public SshKeyClient()
-        {
-
-        }
+        private readonly string _token;
 
         public SshKeyClient(string token)
         {
@@ -49,14 +44,14 @@ namespace DigitalOceanDotNet.Clients
             }
         }
 
-        public async Task<SshKeyClient> Get(long id)
+        public async Task<SshKey> Get(long id)
         {
             // Get
             string json = await Core.SendGetRequest(_token, $"/account/keys/{id}");
 
             // Set
             JObject result = JObject.Parse(json);
-            SshKeyClient response = JsonConvert.DeserializeObject<SshKeyClient>($"{result["ssh_key"]}") ?? new SshKeyClient();
+            SshKey response = JsonConvert.DeserializeObject<SshKey>($"{result["ssh_key"]}") ?? new SshKey();
 
             // Return
             return response;
