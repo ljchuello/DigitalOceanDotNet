@@ -10,9 +10,11 @@ namespace DigitalOceanDotNet
         {
             Token = token;
 
+            RegionClient = new RegionClient(token);
             SshKey = new SshKeyClient(token);
         }
 
+        public RegionClient RegionClient { get; private set; }
         public SshKeyClient SshKey { get; private set; }
     }
 }

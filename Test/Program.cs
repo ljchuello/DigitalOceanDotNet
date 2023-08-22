@@ -11,18 +11,20 @@ namespace Test
 
         static async Task MainAsync()
         {
-            DigitalOceanClient digitalOceanClient = new DigitalOceanClient(await File.ReadAllTextAsync("D:\\DigitalOcean.api.txt"));
-
-            var temp = await digitalOceanClient.SshKey.Get();
-
-            foreach (var row in temp)
+            try
             {
-                row.Name = $"{Guid.NewGuid()}";
-                await digitalOceanClient.SshKey.Put(row);
-            }
+                DigitalOceanClient digitalOceanClient = new DigitalOceanClient(await File.ReadAllTextAsync("D:\\DigitalOcean.api.txt"));
 
-            Console.WriteLine("xD");
-            Console.ReadLine();
+                var a = await digitalOceanClient.RegionClient.Get();
+
+                Console.WriteLine("xD");
+                Console.ReadLine();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Console.ReadLine();
+            }
         }
     }
 }
