@@ -15,6 +15,10 @@ namespace DigitalOceanDotNet.Clients
             _token = token;
         }
 
+        /// <summary>
+        /// List All Data Center Regions
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<Region>> Get()
         {
             List<Region> listRegion = new List<Region>();

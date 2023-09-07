@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Net;
 using System.Threading.Tasks;
 using System.Net.Http.Headers;
-using Newtonsoft.Json.Linq;
+using DigitalOceanDotNet.Objets;
 using Newtonsoft.Json;
 
 namespace DigitalOceanDotNet
@@ -67,9 +67,8 @@ namespace DigitalOceanDotNet
             // No Created
             if (httpResponseMessage.StatusCode != HttpStatusCode.Created)
             {
-                //JObject result = JObject.Parse(json);
-                //Error error = JsonConvert.DeserializeObject<Error>($"{result["error"]}") ?? new Error();
-                throw new Exception("{error.Message}");
+                Universal.Error error = JsonConvert.DeserializeObject<Universal.Error>(json) ?? new Universal.Error();
+                throw new Exception($"{error.Message}");
             }
 
             return json;
@@ -99,9 +98,8 @@ namespace DigitalOceanDotNet
             // No Update
             if (httpResponseMessage.StatusCode != HttpStatusCode.OK)
             {
-                //JObject result = JObject.Parse(json);
-                //Error error = JsonConvert.DeserializeObject<Error>($"{result["error"]}") ?? new Error();
-                throw new Exception("{error.Message}");
+                Universal.Error error = JsonConvert.DeserializeObject<Universal.Error>(json) ?? new Universal.Error();
+                throw new Exception($"{error.Message}");
             }
 
             return json;
@@ -127,9 +125,8 @@ namespace DigitalOceanDotNet
 
                 default:
                     string json = await httpResponseMessage.Content.ReadAsStringAsync();
-                    //JObject result = JObject.Parse(json);
-                    //Error error = JsonConvert.DeserializeObject<Error>($"{result["error"]}") ?? new Error();
-                    throw new Exception("{error.Message}");
+                    Universal.Error error = JsonConvert.DeserializeObject<Universal.Error>(json) ?? new Universal.Error();
+                    throw new Exception($"{error.Message}");
             }
         }
     }

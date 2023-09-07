@@ -4,6 +4,15 @@ namespace DigitalOceanDotNet.Objets
 {
     public class Universal
     {
+        public class Error
+        {
+            [JsonProperty("id")]
+            public string Id { get; set; } = string.Empty;
+
+            [JsonProperty("message")]
+            public string Message { get; set; } = string.Empty;
+        }
+
         public class Links
         {
             [JsonProperty("pages")]

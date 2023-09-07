@@ -1,10 +1,10 @@
-﻿using DigitalOceanDotNet.Objets.SshKey;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
 using DigitalOceanDotNet.Objets.Vpc;
 using System.Collections.Generic;
 using DigitalOceanDotNet.Objets.Vpc.Get;
+using DigitalOceanDotNet.Objets.SshKey;
 
 namespace DigitalOceanDotNet.Clients
 {
@@ -17,6 +17,10 @@ namespace DigitalOceanDotNet.Clients
             _token = token;
         }
 
+        /// <summary>
+        /// List All VPCs
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<Vpc>> Get()
         {
             List<Vpc> list = new List<Vpc>();
@@ -45,6 +49,11 @@ namespace DigitalOceanDotNet.Clients
             }
         }
 
+        /// <summary>
+        /// Retrieve an Existing VPC
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<Vpc> Get(string id)
         {
             // Get
@@ -56,6 +65,51 @@ namespace DigitalOceanDotNet.Clients
 
             // Return
             return response;
+        }
+
+        /// <summary>
+        /// Create a New VPC
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="description"></param>
+        /// <param name="region"></param>
+        /// <param name="ipRange"></param>
+        /// <returns></returns>
+        public async Task<Vpc> Post(string name, string description, string region, string ipRange)
+        {
+            // Preparing raw
+            string raw = $"{{ \"name\": \"{name}\", \"description\": \"{description}\", \"region\": \"{region}\", \"ip_range\": \"{ipRange}\" }}";
+
+            // Send post
+            string json = await Core.SendPostRequest(_token, "/vpcs", raw);
+
+            // Return
+            JObject result = JObject.Parse(json);
+            return JsonConvert.DeserializeObject<Vpc>($"{result["vpc"]}") ?? new Vpc();
+        }
+
+        public async Task<Vpc> Put(Vpc vpc)
+        {
+            // Preparing raw
+            string raw = $"{{ \"name\": \"{vpc.Name}\", \"description\": \"{vpc.Description}\", \"default\": {(vpc.Default ? "true" : "false")} }}";
+
+            // Send post
+            string json = await Core.SendPutRequest(_token, $"/vpcs/{vpc.Id}", raw);
+
+            // Return
+            JObject result = JObject.Parse(json);
+            return JsonConvert.DeserializeObject<Vpc>($"{result["vpc"]}") ?? new Vpc();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="vpc"></param>
+        /// <returns></returns>
+        public async Task Delete(Vpc vpc)
+        {
+            // Send post
+            await Core.SendDeleteRequest(_token, $"/vpcs/{vpc.Id}");
         }
     }
 }

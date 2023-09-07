@@ -15,14 +15,28 @@ namespace Test
             {
                 DigitalOceanClient digitalOceanClient = new DigitalOceanClient(await File.ReadAllTextAsync("D:\\DigitalOcean.api.txt"));
 
-                var a = await digitalOceanClient.Vpc.Get();
+                foreach (var row in await digitalOceanClient.Vpc.Get())
+                {
+                    if (row.Default == false)
+                    {
+                        try
+                        {
+                            await digitalOceanClient.Vpc.Delete(row);
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                        }
+                    }
+                }
 
-                Console.WriteLine("xD");
+                Console.WriteLine("Finish");
                 Console.ReadLine();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine(e);
+                Console.WriteLine(ex);
+                Console.WriteLine("Finish with error");
                 Console.ReadLine();
             }
         }
