@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using DigitalOceanDotNet.Objets.Vpc;
 using System.Collections.Generic;
 using DigitalOceanDotNet.Objets.Vpc.Get;
-using DigitalOceanDotNet.Objets.SshKey;
 
 namespace DigitalOceanDotNet.Clients
 {
@@ -80,7 +79,7 @@ namespace DigitalOceanDotNet.Clients
             // Preparing raw
             string raw = $"{{ \"name\": \"{name}\", \"description\": \"{description}\", \"region\": \"{region}\", \"ip_range\": \"{ipRange}\" }}";
 
-            // Send post
+            // Send
             string json = await Core.SendPostRequest(_token, "/vpcs", raw);
 
             // Return
@@ -98,7 +97,7 @@ namespace DigitalOceanDotNet.Clients
             // Preparing raw
             string raw = $"{{ \"name\": \"{vpc.Name}\", \"description\": \"{vpc.Description}\", \"default\": {(vpc.Default ? "true" : "false")} }}";
 
-            // Send post
+            // Send
             string json = await Core.SendPutRequest(_token, $"/vpcs/{vpc.Id}", raw);
 
             // Return
@@ -107,14 +106,23 @@ namespace DigitalOceanDotNet.Clients
         }
 
         /// <summary>
-        /// 
+        /// To delete a VPC
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task Delete(string id)
+        {
+            await Core.SendDeleteRequest(_token, $"/vpcs/{id}");
+        }
+
+        /// <summary>
+        /// To delete a VPC
         /// </summary>
         /// <param name="vpc"></param>
         /// <returns></returns>
         public async Task Delete(Vpc vpc)
         {
-            // Send post
-            await Core.SendDeleteRequest(_token, $"/vpcs/{vpc.Id}");
+            await Delete(vpc.Id);
         }
     }
 }

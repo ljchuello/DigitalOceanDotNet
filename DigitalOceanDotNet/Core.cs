@@ -10,7 +10,7 @@ namespace DigitalOceanDotNet
 {
     public class Core
     {
-        public static long PerPage = 100;
+        public static long PerPage = 2;
 
         private const string ApiServer = "https://api.digitalocean.com/v2";
 

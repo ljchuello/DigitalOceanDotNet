@@ -16,6 +16,10 @@ namespace DigitalOceanDotNet.Clients
             _token = token;
         }
 
+        /// <summary>
+        /// To list all of the keys in your account
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<SshKey>> Get()
         {
             List<SshKey> listSshKeys = new List<SshKey>();
@@ -44,6 +48,11 @@ namespace DigitalOceanDotNet.Clients
             }
         }
 
+        /// <summary>
+        /// To get information about a key
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<SshKey> Get(long id)
         {
             // Get
@@ -57,12 +66,18 @@ namespace DigitalOceanDotNet.Clients
             return response;
         }
 
+        /// <summary>
+        /// To add a new SSH public key to your DigitalOcean account
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="publicKey"></param>
+        /// <returns></returns>
         public async Task<SshKey> Post(string name, string publicKey)
         {
             // Preparing raw
             string raw = $"{{ \"name\": \"{name}\", \"public_key\": \"{publicKey}\" }}";
 
-            // Send post
+            // Send
             string json = await Core.SendPostRequest(_token, "/account/keys", raw);
 
             // Return
@@ -70,12 +85,17 @@ namespace DigitalOceanDotNet.Clients
             return JsonConvert.DeserializeObject<SshKey>($"{result["ssh_key"]}") ?? new SshKey();
         }
 
+        /// <summary>
+        /// To update the name of an SSH key
+        /// </summary>
+        /// <param name="sshKey"></param>
+        /// <returns></returns>
         public async Task<SshKey> Put(SshKey sshKey)
         {
             // Preparing raw
             string raw = $"{{\"name\":\"{sshKey.Name}\"}}";
 
-            // Send post
+            // Send
             string jsonResponse = await Core.SendPutRequest(_token, $"/account/keys/{sshKey.Id}", raw);
 
             // Return
@@ -83,10 +103,24 @@ namespace DigitalOceanDotNet.Clients
             return JsonConvert.DeserializeObject<SshKey>($"{result["ssh_key"]}") ?? new SshKey();
         }
 
+        /// <summary>
+        /// To destroy a public SSH key that you have in your account
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task Delete(long id)
+        {
+            await Core.SendDeleteRequest(_token, $"/account/keys/{id}");
+        }
+
+        /// <summary>
+        /// To destroy a public SSH key that you have in your account
+        /// </summary>
+        /// <param name="sshKey"></param>
+        /// <returns></returns>
         public async Task Delete(SshKey sshKey)
         {
-            // Send post
-            await Core.SendDeleteRequest(_token, $"/account/keys/{sshKey.Id}");
+            await Delete(sshKey.Id);
         }
     }
 }

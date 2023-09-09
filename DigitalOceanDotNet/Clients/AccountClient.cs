@@ -14,6 +14,10 @@ namespace DigitalOceanDotNet.Clients
             _token = token;
         }
 
+        /// <summary>
+        /// To show information about the current user account
+        /// </summary>
+        /// <returns></returns>
         public async Task<Account> Get()
         {
             // Get

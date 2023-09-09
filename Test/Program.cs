@@ -16,9 +16,6 @@ namespace Test
             {
                 DigitalOceanClient digitalOceanClient = new DigitalOceanClient(await File.ReadAllTextAsync("D:\\DigitalOcean.api.txt"));
 
-                Account account = new Account();
-                account.Status
-
                 Console.WriteLine("Finish");
                 Console.ReadLine();
             }
