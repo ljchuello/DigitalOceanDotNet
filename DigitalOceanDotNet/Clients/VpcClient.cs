@@ -88,6 +88,11 @@ namespace DigitalOceanDotNet.Clients
             return JsonConvert.DeserializeObject<Vpc>($"{result["vpc"]}") ?? new Vpc();
         }
 
+        /// <summary>
+        /// To update information about a VPC
+        /// </summary>
+        /// <param name="vpc"></param>
+        /// <returns></returns>
         public async Task<Vpc> Put(Vpc vpc)
         {
             // Preparing raw

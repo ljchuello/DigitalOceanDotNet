@@ -1,4 +1,5 @@
 ﻿using DigitalOceanDotNet;
+using DigitalOceanDotNet.Objets.Account;
 
 namespace Test
 {
@@ -15,20 +16,8 @@ namespace Test
             {
                 DigitalOceanClient digitalOceanClient = new DigitalOceanClient(await File.ReadAllTextAsync("D:\\DigitalOcean.api.txt"));
 
-                foreach (var row in await digitalOceanClient.Vpc.Get())
-                {
-                    if (row.Default == false)
-                    {
-                        try
-                        {
-                            await digitalOceanClient.Vpc.Delete(row);
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e);
-                        }
-                    }
-                }
+                Account account = new Account();
+                account.Status
 
                 Console.WriteLine("Finish");
                 Console.ReadLine();
