@@ -8,6 +8,8 @@
 
 |  | Get All | Get One | Create | Update | Delete | Actions |
 |--|:--:|:--:|:--:|:--:|:--:|:--:|
+| Project Resources | :x: | :x: | :x: | :x: | :x: | :x: |
+| Projects | :x: | :x: | :x: | :x: | :x: | :x: |
 | Regions | :heavy_check_mark: | :heavy_minus_sign: | :heavy_minus_sign: | :heavy_minus_sign: | :heavy_minus_sign: | :heavy_minus_sign: |
 | Reserved IPs | :x: | :x: | :x: | :x: | :x: | :x: |
 | Sizes | :heavy_check_mark: | :heavy_minus_sign: | :heavy_minus_sign: | :heavy_minus_sign: | :heavy_minus_sign: | :heavy_minus_sign: |
