@@ -8,6 +8,7 @@
 
 |  | Get All | Get One | Create | Update | Delete | Actions |
 |--|:--:|:--:|:--:|:--:|:--:|:--:|
+| Reserved IPs | :x: | :x: | :x: | :x: | :x: | :x: |
 | Sizes | :heavy_check_mark: | :heavy_minus_sign: | :heavy_minus_sign: | :heavy_minus_sign: | :heavy_minus_sign: | :heavy_minus_sign: |
 | Snapshots | :heavy_check_mark: | :heavy_check_mark: | :heavy_minus_sign: | :heavy_minus_sign: | :heavy_check_mark: | :heavy_minus_sign: |
 | SSH Keys | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_minus_sign: |
