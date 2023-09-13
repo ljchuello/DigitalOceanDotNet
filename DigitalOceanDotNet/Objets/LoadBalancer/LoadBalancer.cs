@@ -6,38 +6,65 @@ namespace DigitalOceanDotNet.Objets.LoadBalancer
 {
     public class LoadBalancer
     {
+        /// <summary>
+        /// A unique ID that can be used to identify and reference a load balancer.
+        /// </summary>
         [JsonProperty("id")]
-        public string Id { get; set; }
+        public string Id { get; set; } = string.Empty;
 
+        /// <summary>
+        /// A human-readable name for a load balancer instance.
+        /// </summary>
         [JsonProperty("name")]
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
+        /// <summary>
+        /// An attribute containing the public-facing IP address of the load balancer.
+        /// </summary>
         [JsonProperty("ip")]
-        public string Ip { get; set; }
+        public string Ip { get; set; } = string.Empty;
 
+        /// <summary>
+        /// How many nodes the load balancer contains. Each additional node increases the load balancer's ability to manage more connections. Load balancers can be scaled up or down, and you can change the number of nodes after creation up to once per hour.
+        /// </summary>
         [JsonProperty("size_unit")]
-        public long SizeUnit { get; set; }
+        public long SizeUnit { get; set; } = 0;
 
         [JsonProperty("algorithm")]
-        public string Algorithm { get; set; }
+        public string Algorithm { get; set; } = string.Empty;
 
+        /// <summary>
+        /// A status string indicating the current state of the load balancer. This can be new, active, or errored.
+        /// </summary>
         [JsonProperty("status")]
-        public string Status { get; set; }
+        public string Status { get; set; } = string.Empty;
 
+        /// <summary>
+        /// A time value given in ISO8601 combined date and time format that represents when the load balancer was created.
+        /// </summary>
         [JsonProperty("created_at")]
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; } = new DateTime(1900, 01, 01);
 
+        /// <summary>
+        /// An array of objects specifying the forwarding rules for a load balancer.
+        /// </summary>
         [JsonProperty("forwarding_rules")]
-        public List<ForwardingRule> ForwardingRules { get; set; }
+        public List<ForwardingRule> ForwardingRules { get; set; } = new List<ForwardingRule>();
 
+        /// <summary>
+        /// An object specifying health check settings for the load balancer.
+        /// </summary>
         [JsonProperty("health_check")]
-        public HealthCheck HealthCheck { get; set; }
+        public HealthCheck HealthCheck { get; set; } = new HealthCheck();
 
+        /// <summary>
+        /// An object specifying sticky sessions settings for the load balancer.
+        /// </summary>
         [JsonProperty("sticky_sessions")]
-        public StickySessions StickySessions { get; set; }
+        public StickySessions StickySessions { get; set; } = new StickySessions();
 
         [JsonProperty("region")]
-        public Region.Region Region { get; set; }
+        public Region.Region Region { get; set; } = new Region.Region();
 
         [JsonProperty("tag")]
         public string Tag { get; set; } = string.Empty;
@@ -45,24 +72,45 @@ namespace DigitalOceanDotNet.Objets.LoadBalancer
         [JsonProperty("droplet_ids")]
         public List<long> DropletIds { get; set; } = new List<long>();
 
+        /// <summary>
+        /// A boolean value indicating whether HTTP requests to the load balancer on port 80 will be redirected to HTTPS on port 443.
+        /// </summary>
         [JsonProperty("redirect_http_to_https")]
         public bool RedirectHttpToHttps { get; set; } = false;
 
+        /// <summary>
+        /// A boolean value indicating whether PROXY Protocol is in use.
+        /// </summary>
         [JsonProperty("enable_proxy_protocol")]
         public bool EnableProxyProtocol { get; set; } = false;
 
+        /// <summary>
+        /// A boolean value indicating whether HTTP keepalive connections are maintained to target Droplets.
+        /// </summary>
         [JsonProperty("enable_backend_keepalive")]
         public bool EnableBackendKeepalive { get; set; } = false;
 
+        /// <summary>
+        /// A string specifying the UUID of the VPC to which the load balancer is assigned.
+        /// </summary>
         [JsonProperty("vpc_uuid")]
         public string VpcUuid { get; set; } = string.Empty;
 
+        /// <summary>
+        /// The ID of the project that the load balancer is associated with. If no ID is provided at creation, the load balancer associates with the user's default project. If an invalid project ID is provided, the load balancer will not be created.
+        /// </summary>
         [JsonProperty("project_id")]
         public string ProjectId { get; set; } = string.Empty;
 
+        /// <summary>
+        /// A boolean value indicating whether to disable automatic DNS record creation for Let's Encrypt certificates that are added to the load balancer.
+        /// </summary>
         [JsonProperty("disable_lets_encrypt_dns_records")]
         public bool DisableLetsEncryptDnsRecords { get; set; } = false;
 
+        /// <summary>
+        /// An integer value which configures the idle timeout for HTTP requests to the target droplets.
+        /// </summary>
         [JsonProperty("http_idle_timeout_seconds")]
         public long HttpIdleTimeoutSeconds { get; set; } = 0;
     }

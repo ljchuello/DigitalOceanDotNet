@@ -1,5 +1,5 @@
 ﻿using DigitalOceanDotNet;
-using DigitalOceanDotNet.Objets.Account;
+using DigitalOceanDotNet.Objets.Firewall;
 
 namespace Test
 {
@@ -14,8 +14,8 @@ namespace Test
         {
             try
             {
-                DigitalOceanClient digitalOceanClient = new DigitalOceanClient(await File.ReadAllTextAsync("D:\\DigitalOcean.api.txt")); 
-
+                DigitalOceanClient digitalOceanClient = new DigitalOceanClient(await File.ReadAllTextAsync("D:\\DigitalOcean.api.txt"));
+                
                 Console.WriteLine("Finish");
                 Console.ReadLine();
             }

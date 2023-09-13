@@ -11,6 +11,7 @@ namespace DigitalOceanDotNet
             Token = token;
 
             Account = new AccountClient(token);
+            Firewall = new FirewallClient(token);
             Region = new RegionClient(token);
             Size = new SizeCliente(token);
             Snapshot = new SnapshotsClient(token);
@@ -19,6 +20,7 @@ namespace DigitalOceanDotNet
         }
 
         public AccountClient Account { get; private set; }
+        public FirewallClient Firewall { get; private set; }
         public RegionClient Region { get; private set; }
         public SizeCliente Size { get; private set; }
         public SnapshotsClient Snapshot { get; private set; }

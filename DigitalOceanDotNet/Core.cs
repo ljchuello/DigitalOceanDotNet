@@ -59,13 +59,15 @@ namespace DigitalOceanDotNet
 
             // IsNullOrEmpty
             string json = await httpResponseMessage.Content.ReadAsStringAsync();
-            if (string.IsNullOrEmpty(json))
+
+            // Empty
+            if (string.IsNullOrEmpty(json) && httpResponseMessage.StatusCode != HttpStatusCode.NoContent)
             {
                 throw new Exception("there has been some error, the API has responded empty.");
             }
 
             // No Created
-            if (httpResponseMessage.StatusCode != HttpStatusCode.Created)
+            if (httpResponseMessage.StatusCode != HttpStatusCode.Created && httpResponseMessage.StatusCode != HttpStatusCode.NoContent && httpResponseMessage.StatusCode != HttpStatusCode.Accepted)
             {
                 Universal.Error error = JsonConvert.DeserializeObject<Universal.Error>(json) ?? new Universal.Error();
                 throw new Exception($"{error.Message}");
@@ -128,6 +130,39 @@ namespace DigitalOceanDotNet
                     Universal.Error error = JsonConvert.DeserializeObject<Universal.Error>(json) ?? new Universal.Error();
                     throw new Exception($"{error.Message}");
             }
+        }
+
+        public static async Task<string> SendDeleteRequest(string token, string url, string content)
+        {
+            HttpResponseMessage httpResponseMessage;
+            using (HttpClient httpClient = new HttpClient())
+            {
+                using (HttpRequestMessage httpRequestMessage = new HttpRequestMessage(new HttpMethod("DELETE"), $"{ApiServer}{url}"))
+                {
+                    httpRequestMessage.Headers.TryAddWithoutValidation("Authorization", $"Bearer {token}");
+                    httpRequestMessage.Content = new StringContent(content);
+                    httpRequestMessage.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
+                    httpResponseMessage = await httpClient.SendAsync(httpRequestMessage);
+                }
+            }
+
+            // IsNullOrEmpty
+            string json = await httpResponseMessage.Content.ReadAsStringAsync();
+
+            // Empty
+            if (string.IsNullOrEmpty(json) && httpResponseMessage.StatusCode != HttpStatusCode.NoContent)
+            {
+                throw new Exception("there has been some error, the API has responded empty.");
+            }
+
+            // No Created
+            if (httpResponseMessage.StatusCode != HttpStatusCode.Created && httpResponseMessage.StatusCode != HttpStatusCode.NoContent && httpResponseMessage.StatusCode != HttpStatusCode.Accepted)
+            {
+                Universal.Error error = JsonConvert.DeserializeObject<Universal.Error>(json) ?? new Universal.Error();
+                throw new Exception($"{error.Message}");
+            }
+
+            return json;
         }
     }
 }
