@@ -71,12 +71,18 @@ namespace DigitalOceanDotNet.Objets.LoadBalancer
         [JsonProperty("sticky_sessions")]
         public StickySessions StickySessions { get; set; } = new StickySessions();
 
+        /// <summary>
+        /// The region where the load balancer instance is located
+        /// </summary>
         [JsonProperty("region")]
         public Region.Region Region { get; set; } = new Region.Region();
 
-        [JsonProperty("tag")]
-        public string Tag { get; set; } = string.Empty;
+        //[JsonProperty("tag")]
+        //public string Tag { get; set; } = string.Empty;
 
+        /// <summary>
+        /// An array containing the IDs of the Droplets assigned to the load balancer
+        /// </summary>
         [JsonProperty("droplet_ids")]
         public List<int> DropletIds { get; set; } = new List<int>();
 
@@ -125,51 +131,93 @@ namespace DigitalOceanDotNet.Objets.LoadBalancer
 
     public class ForwardingRule
     {
+        /// <summary>
+        /// The protocol used for traffic to the load balancer
+        /// </summary>
         [JsonProperty("entry_protocol")]
         public string EntryProtocol { get; set; } = string.Empty;
 
+        /// <summary>
+        /// An integer representing the port on which the load balancer instance will listen
+        /// </summary>
         [JsonProperty("entry_port")]
         public int EntryPort { get; set; } = 0;
 
+        /// <summary>
+        /// The protocol used for traffic from the load balancer to the backend Droplets
+        /// </summary>
         [JsonProperty("target_protocol")]
         public string TargetProtocol { get; set; } = string.Empty;
 
+        /// <summary>
+        /// An integer representing the port on the backend Droplets to which the load balancer will send traffic
+        /// </summary>
         [JsonProperty("target_port")]
         public int TargetPort { get; set; } = 0;
 
+        /// <summary>
+        /// The ID of the TLS certificate used for SSL termination if enabled
+        /// </summary>
         [JsonProperty("certificate_id")]
         public string CertificateId { get; set; } = string.Empty;
 
+        /// <summary>
+        /// A boolean value indicating whether SSL encrypted traffic will be passed through to the backend Droplets
+        /// </summary>
         [JsonProperty("tls_passthrough")]
         public bool TlsPassthrough { get; set; } = false;
     }
 
     public class HealthCheck
     {
+        /// <summary>
+        /// The protocol used for health checks sent to the backend Droplets
+        /// </summary>
         [JsonProperty("protocol")]
         public string Protocol { get; set; } = string.Empty;
 
+        /// <summary>
+        /// An integer representing the port on the backend Droplets on which the health check will attempt a connection
+        /// </summary>
         [JsonProperty("port")]
         public int Port { get; set; } = 0;
 
+        /// <summary>
+        /// The path on the backend Droplets to which the load balancer instance will send a request
+        /// </summary>
         [JsonProperty("path")]
         public string Path { get; set; } = string.Empty;
 
+        /// <summary>
+        /// The number of seconds between between two consecutive health checks
+        /// </summary>
         [JsonProperty("check_interval_seconds")]
         public int CheckIntervalSeconds { get; set; } = 0;
 
+        /// <summary>
+        /// The number of seconds the load balancer instance will wait for a response until marking a health check as failed
+        /// </summary>
         [JsonProperty("response_timeout_seconds")]
         public int ResponseTimeoutSeconds { get; set; } = 0;
 
+        /// <summary>
+        /// The number of times a health check must pass for a backend Droplet to be marked "healthy" and be re-added to the pool
+        /// </summary>
         [JsonProperty("healthy_threshold")]
         public int HealthyThreshold { get; set; } = 0;
 
+        /// <summary>
+        /// The number of times a health check must fail for a backend Droplet to be marked "unhealthy" and be removed from the pool
+        /// </summary>
         [JsonProperty("unhealthy_threshold")]
         public int UnhealthyThreshold { get; set; } = 0;
     }
 
     public class StickySessions
     {
+        /// <summary>
+        /// An attribute indicating how and if requests from a client will be persistently served by the same backend Droplet. The possible values are cookies or none
+        /// </summary>
         [JsonProperty("type")]
         public string Type { get; set; } = string.Empty;
     }
