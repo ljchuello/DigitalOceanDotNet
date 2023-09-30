@@ -4,8 +4,6 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DigitalOceanDotNet.Objets.Firewall.Get;
-using System.Xml.Linq;
-using System.Data;
 
 namespace DigitalOceanDotNet.Clients
 {
